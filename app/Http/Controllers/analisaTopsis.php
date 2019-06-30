@@ -129,17 +129,64 @@ class analisaTopsis extends Controller
         }
         foreach ($mahasiswa as $key) {
             # code...
-            $key->r_ipk = $key->l_ipk*(sqrt($temp_ipk));
-            $key->r_prestasi = $key->l_prestasi*(sqrt($temp_prestasi));
-            $key->r_karya_ilmiah = $key->l_karya_ilmiah*(sqrt($temp_karya_ilmiah));
-            $key->r_bahasa_asing = $key->l_bahasa_asing*(sqrt($temp_bahasa_asing));
-            $key->r_indeks_sks = $key->l_indeks_sks*(sqrt($temp_indeks_sks));
+            $key->r_ipk = $key->l_ipk/(sqrt($temp_ipk));
+            $key->r_prestasi = $key->l_prestasi/(sqrt($temp_prestasi));
+            $key->r_karya_ilmiah = $key->l_karya_ilmiah/(sqrt($temp_karya_ilmiah));
+            $key->r_bahasa_asing = $key->l_bahasa_asing/(sqrt($temp_bahasa_asing));
+            $key->r_indeks_sks = $key->l_indeks_sks/(sqrt($temp_indeks_sks));
         }
 
 
         return $mahasiswa;        
     }
 
+    public function get_terbobot()
+    {
+        # code...
+        $mahasiswa = $this->get_normalized();
+        $options = \App\Model\Setting::getAllKeyValue();
+        $c1 = json_decode($options['c1']);
+        $c2 = json_decode($options['c2']);
+        $c3 = json_decode($options['c3']);
+        $c4 = json_decode($options['c4']);
+        $c5 = json_decode($options['c5']);
+        foreach ($mahasiswa as $key) {
+            # code...
+            $key->v_ipk = $key->r_ipk*$c1->weight;
+            $key->v_prestasi = $key->r_prestasi*$c2->weight;
+            $key->v_karya_ilmiah = $key->r_karya_ilmiah*$c3->weight;
+            $key->v_bahasa_asing = $key->r_bahasa_asing*$c4->weight;
+            $key->v_indeks_sks = $key->r_indeks_sks*$c5->weight;
+        }
+
+        return $mahasiswa;
+    }
+    public function get_ideal()
+    {
+        # code...
+        $mahasiswa = $this->get_terbobot();
+        $temp_ipk = [];
+        $temp_prestasi = [];
+        $temp_karya_ilmiah = [];
+        $temp_bahasa_asing = [];
+        $temp_indeks_sks = [];
+        foreach ($mahasiswa as $key) {
+            # code...
+            $temp_ipk[] = $key->v_ipk;
+            $temp_prestasi[] = $key->v_prestasi;
+            $temp_karya_ilmiah[] = $key->v_karya_ilmiah;
+            $temp_bahasa_asing[] = $key->v_bahasa_asing;
+            $temp_indeks_sks[] = $key->v_indeks_sks;
+        }
+        $solusi = array(
+            'c1' => array('positif' => max($temp_prestasi),'negatif' => min($temp_prestasi)),
+            'c2' => array('positif' => max($temp_karya_ilmiah),'negatif' => min($temp_karya_ilmiah)),
+            'c3' => array('positif' => max($temp_bahasa_asing),'negatif' => min($temp_bahasa_asing)),
+            'c4' => array('positif' => max($temp_ipk),'negatif' => min($temp_ipk)),
+            'c5' => array('positif' => max($temp_indeks_sks),'negatif' => min($temp_indeks_sks)),
+        );
+        return $solusi;
+    }
     public function linguistik()
     {
         # code...
@@ -244,6 +291,22 @@ class analisaTopsis extends Controller
                 ->setRowId(function(Mahasiswa $mahasiswa){
                     return $mahasiswa->id;
                 })->make(true);
+    }
+    public function matrix_keputusan_terbobot()
+    {
+        # code...
+        $mahasiswa = $this->get_terbobot();
+        return Datatables::of($mahasiswa)
+                ->setRowId(function(Mahasiswa $mahasiswa){
+                    return $mahasiswa->id;
+                })->make(true);
+    }
+    
+    public function solusi_ideal()
+    {
+        # code...
+        $data['solusi'] = $this->get_ideal();
+        return view('admin.topsis.matrix_solusi_ideal',$data);
     }
 
 }

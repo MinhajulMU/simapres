@@ -19,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\analisaTopsis' => $baseDir . '/app/Http/Controllers/analisaTopsis.php',
     'App\\Http\\Controllers\\mahasiswaController' => $baseDir . '/app/Http/Controllers/mahasiswaController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
@@ -31,6 +32,7 @@ return array(
     'App\\Http\\Middleware\\roleMiddleware' => $baseDir . '/app/Http/Middleware/roleMiddleware.php',
     'App\\Model\\Mahasiswa' => $baseDir . '/app/Model/Mahasiswa.php',
     'App\\Model\\Role' => $baseDir . '/app/Model/Role.php',
+    'App\\Model\\Setting' => $baseDir . '/app/Model/Setting.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
@@ -4085,5 +4087,6 @@ return array(
     'phpDocumentor\\Reflection\\Types\\This' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/This.php',
     'phpDocumentor\\Reflection\\Types\\Void_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Void_.php',
     'roleSeed' => $baseDir . '/database/seeds/roleSeed.php',
+    'seedSetting' => $baseDir . '/database/seeds/seedSetting.php',
     'userSeed' => $baseDir . '/database/seeds/userSeed.php',
 );

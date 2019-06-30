@@ -8,6 +8,9 @@
         <li class="has-submenu">
             <a href="/amahasiswa"><i class="fa fa-users"></i>Mahasiswa</a>
         </li>
+        <li class="has-submenu">
+            <a href="/asetting"><i class="fa fa-gear"></i>Setting</a>
+        </li>
 
         <li class="has-submenu">
             <a href="#"><i class="fa fa-tasks"></i>Analisa Fuzzy Topsis</a>
@@ -15,8 +18,8 @@
                 <li><a href="/alinguistik">Linguistik Fuzzy</a></li>
                 <li><a href="/amatrix_keputusan">Matrix Keputusan</a></li>
                 <li><a href="/amatrix_keputusan_ternormalisasi">Matrix Keputusan Ternormalisasi</a></li>
-                <li><a href="ui-buttons.html">Matrix Keputusan Terbobot</a></li>
-                <li><a href="ui-buttons.html">Matrix Solusi Ideal Positif Negatif</a></li>
+                <li><a href="/amatrix_keputusan_terbobot">Matrix Keputusan Terbobot</a></li>
+                <li><a href="/amatrix_solusi_ideal">Matrix Solusi Ideal Positif Negatif</a></li>
                 <li><a href="ui-buttons.html">Jarak Nilai</a></li>
             </ul>
         </li>

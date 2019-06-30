@@ -495,6 +495,7 @@ class ComposerStaticInit80617ef69f821e50b6eef147cd092e63
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\analisaTopsis' => __DIR__ . '/../..' . '/app/Http/Controllers/analisaTopsis.php',
         'App\\Http\\Controllers\\mahasiswaController' => __DIR__ . '/../..' . '/app/Http/Controllers/mahasiswaController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -507,6 +508,7 @@ class ComposerStaticInit80617ef69f821e50b6eef147cd092e63
         'App\\Http\\Middleware\\roleMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/roleMiddleware.php',
         'App\\Model\\Mahasiswa' => __DIR__ . '/../..' . '/app/Model/Mahasiswa.php',
         'App\\Model\\Role' => __DIR__ . '/../..' . '/app/Model/Role.php',
+        'App\\Model\\Setting' => __DIR__ . '/../..' . '/app/Model/Setting.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -4561,6 +4563,7 @@ class ComposerStaticInit80617ef69f821e50b6eef147cd092e63
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'roleSeed' => __DIR__ . '/../..' . '/database/seeds/roleSeed.php',
+        'seedSetting' => __DIR__ . '/../..' . '/database/seeds/seedSetting.php',
         'userSeed' => __DIR__ . '/../..' . '/database/seeds/userSeed.php',
     );
 
