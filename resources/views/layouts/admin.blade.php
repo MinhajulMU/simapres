@@ -15,8 +15,10 @@
         <link href="{{asset('admin/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('admin/assets/css/icons.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('admin/assets/css/style.css')}}" rel="stylesheet" type="text/css" />
-
+        <link href="{{ asset('admin/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
         <script src="{{asset('admin/assets/js/modernizr.min.js')}}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" />
         @stack('css')
     </head>
 
@@ -35,9 +37,8 @@
                             <!--<span class="logo-large"><i class="mdi mdi-radar"></i> Abstack</span>-->
                         <!--</a>-->
                         <!-- Image Logo -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/logo_sm.png" alt="" height="26" class="logo-small">
-                            <img src="assets/images/logo.png" alt="" height="16" class="logo-large">
+                        <a href="/" class="logo">
+                            <h3 style="padding-top: 15px;">Simapres</h3>
                         </a>
 
                     </div>
@@ -158,6 +159,22 @@
         <!-- App js -->
         <script src="{{asset('admin/assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('admin/assets/js/jquery.app.js')}}"></script>
+        
+
+        <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <!-- Buttons examples -->
+        <script src="{{ asset('admin/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/jszip.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/vfs_fonts.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/buttons.print.min.js') }}"></script>
+        <!-- Responsive examples -->
+        <script src="{{ asset('admin/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
         @stack('scripts')
 
     </body>
