@@ -20,12 +20,14 @@
                 <li><a href="/amatrix_keputusan_ternormalisasi">Matrix Keputusan Ternormalisasi</a></li>
                 <li><a href="/amatrix_keputusan_terbobot">Matrix Keputusan Terbobot</a></li>
                 <li><a href="/amatrix_solusi_ideal">Matrix Solusi Ideal Positif Negatif</a></li>
-                <li><a href="ui-buttons.html">Jarak Nilai</a></li>
+                <li><a href="/ajarak_solusi_positif">Jarak Solusi Positif</a></li>
+                <li><a href="/ajarak_solusi_negatif">Jarak Solusi Negatif</a></li>
+                <li><a href="/anilai_preferensi">Nilai Preferensi</a></li>
             </ul>
         </li>
 
         <li class="has-submenu">
-            <a href="#"><i class="fa fa-check"></i>Hasil Rekomendasi</a>
+            <a href="/ahasil_rekomendasi"><i class="fa fa-check"></i>Hasil Rekomendasi</a>
         </li>
 
     </ul>

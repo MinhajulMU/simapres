@@ -164,6 +164,12 @@ class analisaTopsis extends Controller
     public function get_ideal()
     {
         # code...
+        $options = \App\Model\Setting::getAllKeyValue();
+        $c1 = json_decode($options['c1']);
+        $c2 = json_decode($options['c2']);
+        $c3 = json_decode($options['c3']);
+        $c4 = json_decode($options['c4']);
+        $c5 = json_decode($options['c5']);
         $mahasiswa = $this->get_terbobot();
         $temp_ipk = [];
         $temp_prestasi = [];
@@ -178,14 +184,58 @@ class analisaTopsis extends Controller
             $temp_bahasa_asing[] = $key->v_bahasa_asing;
             $temp_indeks_sks[] = $key->v_indeks_sks;
         }
+        
         $solusi = array(
-            'c1' => array('positif' => max($temp_prestasi),'negatif' => min($temp_prestasi)),
-            'c2' => array('positif' => max($temp_karya_ilmiah),'negatif' => min($temp_karya_ilmiah)),
-            'c3' => array('positif' => max($temp_bahasa_asing),'negatif' => min($temp_bahasa_asing)),
-            'c4' => array('positif' => max($temp_ipk),'negatif' => min($temp_ipk)),
-            'c5' => array('positif' => max($temp_indeks_sks),'negatif' => min($temp_indeks_sks)),
+            'c1' => array('positif' => (!$c1->is_cost) ?  max($temp_prestasi) :  min($temp_prestasi),'negatif' => ($c1->is_cost) ?  max($temp_prestasi) :  min($temp_prestasi)),
+            'c2' => array('positif' => (!$c2->is_cost) ?  max($temp_karya_ilmiah) :  min($temp_karya_ilmiah),'negatif' => ($c2->is_cost) ?  max($temp_karya_ilmiah) :  min($temp_karya_ilmiah)),
+            'c3' => array('positif' => (!$c3->is_cost) ?  max($temp_bahasa_asing) :  min($temp_bahasa_asing),'negatif' => ($c3->is_cost) ?  max($temp_bahasa_asing) :  min($temp_bahasa_asing)),
+            'c4' => array('positif' => (!$c4->is_cost) ?  max($temp_ipk) :  min($temp_ipk),'negatif' => ($c4->is_cost) ?  max($temp_ipk) :  min($temp_ipk)),
+            'c5' => array('positif' => (!$c5->is_cost) ?  max($temp_indeks_sks) :  min($temp_indeks_sks),'negatif' => ($c5->is_cost) ?  max($temp_indeks_sks) :  min($temp_indeks_sks)),
         );
+
         return $solusi;
+    }
+    public function get_positif_distance()
+    {
+        # code...
+        $mahasiswa = $this->get_terbobot();
+        $solusi_ideal = $this->get_ideal();
+        foreach ($mahasiswa as $key) {
+            # code...
+            $key->a_prestasi = pow(($key->v_prestasi - $solusi_ideal['c1']['positif']),2);
+            $key->a_karya_ilmiah = pow(($key->v_karya_ilmiah - $solusi_ideal['c2']['positif']),2);
+            $key->a_bahasa_asing = pow(($key->v_bahasa_asing - $solusi_ideal['c3']['positif']),2);
+            $key->a_ipk = pow(($key->v_ipk - $solusi_ideal['c4']['positif']),2);
+            $key->a_indeks_sks = pow(($key->v_indeks_sks - $solusi_ideal['c5']['positif']),2);
+            $key->a_total = sqrt($key->a_prestasi+$key->a_karya_ilmiah+$key->a_bahasa_asing+$key->a_ipk+$key->a_indeks_sks);
+        }
+        return $mahasiswa;
+    }
+    public function get_negatif_distance()
+    {
+        # code...
+        $mahasiswa = $this->get_positif_distance();
+        $solusi_ideal = $this->get_ideal();
+        foreach ($mahasiswa as $key) {
+            # code...
+            $key->b_prestasi = pow(($key->v_prestasi - $solusi_ideal['c1']['negatif']),2);
+            $key->b_karya_ilmiah = pow(($key->v_karya_ilmiah - $solusi_ideal['c2']['negatif']),2);
+            $key->b_bahasa_asing = pow(($key->v_bahasa_asing - $solusi_ideal['c3']['negatif']),2);
+            $key->b_ipk = pow(($key->v_ipk - $solusi_ideal['c4']['negatif']),2);
+            $key->b_indeks_sks = pow(($key->v_indeks_sks - $solusi_ideal['c5']['negatif']),2);
+            $key->b_total = sqrt($key->b_prestasi+$key->b_karya_ilmiah+$key->b_bahasa_asing+$key->b_ipk+$key->b_indeks_sks);
+        }
+        return $mahasiswa;
+    }
+    public function get_nilai_preferensi()
+    {
+        # code...
+        $mahasiswa = $this->get_negatif_distance();
+        foreach ($mahasiswa as $key) {
+            # code...
+            $key->nilai_preferensi = $key->b_total/($key->a_total + $key->b_total);
+        }
+        return $mahasiswa;
     }
     public function linguistik()
     {
@@ -307,6 +357,33 @@ class analisaTopsis extends Controller
         # code...
         $data['solusi'] = $this->get_ideal();
         return view('admin.topsis.matrix_solusi_ideal',$data);
+    }
+    public function jarak_solusi_positif()
+    {
+        # code...
+        $mahasiswa = $this->get_positif_distance();
+        return Datatables::of($mahasiswa)
+                ->setRowId(function(Mahasiswa $mahasiswa){
+                    return $mahasiswa->id;
+                })->make(true);
+    }
+    public function jarak_solusi_negatif()
+    {
+        # code...
+        $mahasiswa = $this->get_negatif_distance();
+        return Datatables::of($mahasiswa)
+                ->setRowId(function(Mahasiswa $mahasiswa){
+                    return $mahasiswa->id;
+                })->make(true);
+    }
+    public function nilai_preferensi()
+    {
+        # code...
+        $mahasiswa = $this->get_nilai_preferensi();
+        return Datatables::of($mahasiswa)
+                ->setRowId(function(Mahasiswa $mahasiswa){
+                    return $mahasiswa->id;
+                })->make(true);
     }
 
 }
